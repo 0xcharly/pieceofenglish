@@ -10,9 +10,7 @@ defmodule Poe.Application do
     children = [
       PoeWeb.Telemetry,
       Poe.Repo,
-      {Ecto.Migrator,
-        repos: Application.fetch_env!(:poe, :ecto_repos),
-        skip: skip_migrations?()},
+      {Ecto.Migrator, repos: Application.fetch_env!(:poe, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:poe, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Poe.PubSub},
       # Start the Finch HTTP client for sending emails
