@@ -9,6 +9,7 @@
     alejandra
     just
 
+    inotify-tools
     next-ls
   ];
 
