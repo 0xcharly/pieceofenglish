@@ -8,6 +8,7 @@
   packages = with pkgs; [
     alejandra
     just
+    mix2nix
 
     inotify-tools
     next-ls
@@ -26,6 +27,11 @@
 
   # https://devenv.sh/services/
   # services.postgres.enable = true;
+
+  env = {
+    MIX_HOME = "$PWD/.cache/mix";
+    HEX_HOME = "$PWD/.cache/hex";
+  };
 
   # https://devenv.sh/scripts/
   scripts.hello.exec = ''
