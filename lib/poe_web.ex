@@ -90,6 +90,9 @@ defmodule PoeWeb do
       # Core UI components
       import PoeWeb.CoreComponents
 
+      # Custom UI components
+      import PoeWeb.PoeComponents
+
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
 
