@@ -30,16 +30,22 @@
         version = "0.0.1-dev";
         src = ./.;
 
-        mixNixDeps = import ./deps.nix {inherit (pkgs) lib beamPackages;};
+        mixNixDeps = import ./deps.nix {
+          inherit (pkgs) lib beamPackages;
 
-        installHook = {release}: ''
-          export APP_VERSION="${version}"
-          export APP_NAME="${pname}"
-          export ELIXIR_RELEASE="1.18"
-          runHook preInstall
-          mix release --no-deps-check --path "$out" ${release}
-          runHook postInstall
-        '';
+          # https://kivikakk.ee/2025/07/31/using-phoenix-liveview-1.1-with-nix
+          # https://github.com/Makesesama/uknown/blob/96a89d1ca87c94619ab4966b798d33d923be715c/nix/deps.nix
+          # Works around the following error:
+          # > ** (File.Error) could not make directory (with -p) "/homeless-shelter/.cache/elixir_make": no such file or directory
+          overrides = final: prev: {
+            exqlite = prev.exqlite.overrideAttrs (prevAttrs: {
+              preConfigure = ''
+                export ELIXIR_MAKE_CACHE_DIR="$TMPDIR/.cache"
+              '';
+            });
+          };
+        };
+
         meta = with pkgs.lib; {
           license = licenses.mit;
           homepage = "https://pieceofenglish.fr";
@@ -48,19 +54,19 @@
 
         release = pkgs.beamPackages.mixRelease {
           inherit pname version src mixNixDeps meta;
-          mixEnv = "prod";
-          installPhase = installHook {release = "prod";};
-        };
-        debug = pkgs.beamPackages.mixRelease {
-          inherit pname version src mixNixDeps meta;
-          mixEnv = "dev";
-          installPhase = installHook {release = "dev";};
+          removeCookie = false;
+          # mixEnv = "prod";
+          # installPhase = installHook {release = "prod";};
+
+          # Deploy assets before creating release
+          # preInstall = ''
+          #   # https://github.com/phoenixframework/phoenix/issues/2690
+          #   mix do deps.loadpaths --no-deps-check, assets.deploy
+          #   mix phx.digest
+          # '';
         };
       in {
-        packages = {
-          default = release;
-          inherit release debug;
-        };
+        packages.default = release;
       };
     };
 
