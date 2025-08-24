@@ -10,7 +10,7 @@
       systems = ["x86_64-linux"];
 
       perSystem = {system, ...}: let
-        overlay = prev: final: rec {
+        overlay = prev: _final: rec {
           beamPackages = prev.beam.packagesWith prev.beam.interpreters.erlang_27;
           elixir = beamPackages.elixir_1_18;
           erlang = prev.erlang_27;
