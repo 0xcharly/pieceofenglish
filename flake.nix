@@ -13,7 +13,10 @@
           overlays = [(import ./nix/overlay.nix)];
         };
       in {
-        packages.default = pkgs.callPackage ./nix/package.nix {};
+        packages = rec {
+          pieceofenglish = pkgs.callPackage ./nix/package.nix {};
+          default = pieceofenglish;
+        };
       };
     };
 

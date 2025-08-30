@@ -10,7 +10,7 @@ in {
     enable = lib.mkEnableOption "Piece of English";
 
     package = lib.mkPackageOption pkgs "pieceofenglish" {
-      default = self.packages.${pkgs.system}.default;
+      inherit (self.packages.${pkgs.system}) default;
     };
 
     autoStart = lib.mkOption {
