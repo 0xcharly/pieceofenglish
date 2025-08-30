@@ -45,21 +45,23 @@ if config_env() == :prod do
 
   config :poe, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
-  def create_http_config() do
-    with {:ok, addr} <- System.get_env("HTTP_BINDING_ADDRESS"),
-         {:ok, ip} <- :inet.parse_address(addr) do
-      [ip: ip, port: port]
-    else
-      _ ->
-        raise """
-        environment variable HTTP_BINDING_ADDRESS is missing or invalid.
-        For example: 127.0.0.1
-        """
+  defmodule PoeConfig do
+    def create_http_config() do
+      with {:ok, addr} <- System.get_env("HTTP_BINDING_ADDRESS"),
+           {:ok, ip} <- :inet.parse_address(addr) do
+        [ip: ip, port: port]
+      else
+        _ ->
+          raise """
+          environment variable HTTP_BINDING_ADDRESS is missing or invalid.
+          For example: 127.0.0.1
+          """
+      end
     end
   end
 
   config :poe, PoeWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
-    http: create_http_config(),
+    http: PoeConfig.create_http_config(),
     secret_key_base: secret_key_base
 end
