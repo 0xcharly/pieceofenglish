@@ -2,8 +2,8 @@ import Config
 
 defmodule PoeConfig do
   def create_http_config(port) do
-    with {:ok, addr} <- System.get_env("HTTP_BINDING_ADDRESS"),
-         {:ok, ip} <- :inet.parse_address(addr) do
+    with addr when addr != nil <- System.get_env("HTTP_BINDING_ADDRESS"),
+         {:ok, ip} <- :inet.parse_address(to_charlist(addr)) do
       [ip: ip, port: port]
     else
       _ ->
