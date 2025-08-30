@@ -1,5 +1,20 @@
 import Config
 
+defmodule PoeConfig do
+  def create_http_config() do
+    with {:ok, addr} <- System.get_env("HTTP_BINDING_ADDRESS"),
+         {:ok, ip} <- :inet.parse_address(addr) do
+      [ip: ip, port: port]
+    else
+      _ ->
+        raise """
+        environment variable HTTP_BINDING_ADDRESS is missing or invalid.
+        For example: 127.0.0.1
+        """
+    end
+  end
+end
+
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
 # system starts, so it is typically used to load production configuration
@@ -44,21 +59,6 @@ if config_env() == :prod do
   port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :poe, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
-
-  defmodule PoeConfig do
-    def create_http_config() do
-      with {:ok, addr} <- System.get_env("HTTP_BINDING_ADDRESS"),
-           {:ok, ip} <- :inet.parse_address(addr) do
-        [ip: ip, port: port]
-      else
-        _ ->
-          raise """
-          environment variable HTTP_BINDING_ADDRESS is missing or invalid.
-          For example: 127.0.0.1
-          """
-      end
-    end
-  end
 
   config :poe, PoeWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
