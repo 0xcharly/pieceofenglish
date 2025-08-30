@@ -96,7 +96,6 @@ in {
           Group = cfg.group;
           DynamicUser = false;
 
-          ExecStartPre = ''${lib.getExe cfg.package} eval "Poe.Release.migrate"'';
           ExecStart = ''${lib.getExe cfg.package} start'';
           ExecStop = ''${lib.getExe cfg.package} stop'';
 
