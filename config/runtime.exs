@@ -45,7 +45,7 @@ if config_env() == :prod do
 
   config :poe, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
-  defp create_http_config() do
+  def create_http_config() do
     with {:ok, addr} <- System.get_env("HTTP_BINDING_ADDRESS"),
          {:ok, ip} <- :inet.parse_address(addr) do
       [ip: ip, port: port]
