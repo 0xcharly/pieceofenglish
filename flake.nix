@@ -1,11 +1,15 @@
 {
   description = "Piece of English website";
 
-  outputs = inputs @ {self, flake-parts, ...}:
+  outputs = inputs @ {
+    self,
+    flake-parts,
+    ...
+  }:
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
 
-      flake.nixosModules.default = import ./nix/module.nix {inherit self;};
+      flake.nixosModules.default = import ./nix/module.nix self;
 
       perSystem = {system, ...}: let
         pkgs = import inputs.nixpkgs {

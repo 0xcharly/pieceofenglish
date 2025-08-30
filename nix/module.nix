@@ -1,4 +1,4 @@
-{self}: {
+self: {
   config,
   lib,
   pkgs,
@@ -22,13 +22,13 @@ in {
     user = lib.mkOption {
       description = "Unix User to run the server under";
       type = lib.types.str;
-      default = "taskchampion";
+      default = "pieceofenglish";
     };
 
     group = lib.mkOption {
       description = "Unix Group to run the server under";
       type = lib.types.str;
-      default = "taskchampion";
+      default = "pieceofenglish";
     };
 
     environmentFile = lib.mkOption {
