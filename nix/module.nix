@@ -73,11 +73,13 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.${cfg.user} = {
-      isSystemUser = true;
-      inherit (cfg) group;
+    users = {
+      users.${cfg.user} = {
+        isSystemUser = true;
+        inherit (cfg) group;
+      };
+      groups.${cfg.group} = {};
     };
-    users.groups.${cfg.group} = {};
 
     networking.firewall.allowedTCPPorts = lib.mkIf (cfg.openFirewall) [cfg.port];
 
