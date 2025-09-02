@@ -13,8 +13,8 @@
     # https://github.com/Makesesama/uknown/blob/96a89d1ca87c94619ab4966b798d33d923be715c/nix/deps.nix
     # Works around the following error:
     # > ** (File.Error) could not make directory (with -p) "/homeless-shelter/.cache/elixir_make": no such file or directory
-    overrides = final: prev: {
-      exqlite = prev.exqlite.overrideAttrs (prevAttrs: {
+    overrides = _final: prev: {
+      exqlite = prev.exqlite.overrideAttrs (_prevAttrs: {
         preConfigure = ''
           export ELIXIR_MAKE_CACHE_DIR="$TMPDIR/.cache"
         '';

@@ -19,6 +19,7 @@ defmodule PoeWeb.Router do
 
     get "/", PageController, :home
     get "/about", PageController, :about
+    get "/booking", PageController, :simplybook
   end
 
   # Other scopes may use custom stacks.

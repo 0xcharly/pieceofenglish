@@ -11,4 +11,9 @@ defmodule PoeWeb.PageController do
     # The about page.
     render(conn, :about)
   end
+
+  def simplybook(conn, _params) do
+    # The booking page, powered by SimplyBook.
+    render(conn, :simplybook)
+  end
 end
