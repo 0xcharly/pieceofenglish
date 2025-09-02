@@ -10,7 +10,6 @@
     just
     mix2nix
 
-    inotify-tools
     next-ls
   ];
 
