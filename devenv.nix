@@ -5,13 +5,15 @@
   ...
 }: {
   # https://devenv.sh/packages/
-  packages = with pkgs; [
-    alejandra
-    just
-    mix2nix
+  packages = with pkgs;
+    [
+      alejandra
+      just
+      mix2nix
 
-    next-ls
-  ];
+      next-ls
+    ]
+    ++ lib.optionals pkgs.stdenv.isLinux [pkgs.inotify-tools];
 
   languages = {
     elixir.enable = true;
