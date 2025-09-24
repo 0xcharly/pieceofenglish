@@ -87,18 +87,17 @@ defmodule PoeWeb.PoeComponents do
 
   ## Example
 
-    <.front_page_button label="Schedule a lesson">
-      <.icon_calendar />
+    <.front_page_button href={~p"/about"} label="About">
+      <.icon_info />
     </.front_page_button>
   """
   attr :href, :string, required: true
   attr :label, :string, required: true
-  attr :class, :string, default: ""
   slot :inner_block, required: true
 
   def front_page_button(assigns) do
     ~H"""
-    <a href={@href} class={@class || ""}>
+    <a href={@href} class= "group relative rounded-2xl px-6 py-4 text-sm text-center font-semibold leading-6 text-zinc-900 sm:py-6">
       <span class="absolute inset-0 rounded-2xl transition bg-[#ffdfec] bg-opacity-40 group-hover:bg-opacity-50 sm:group-hover:scale-105">
       </span>
       <span class="relative flex items-center gap-4 sm:flex-col">

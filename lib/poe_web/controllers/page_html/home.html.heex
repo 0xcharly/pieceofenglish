@@ -2,30 +2,20 @@
 <div class="px-4 py-10 sm:px-6 sm:py-28 lg:px-8 xl:px-28 xl:py-32">
   <div class="mx-auto max-w-xl lg:mx-0">
     <.logo />
-    <.heading
-      title="Piece of English"
-      description="Cours particuliers d'anglais en visio."
-    />
+    <.heading title="Piece of English" description="Cours particuliers d'anglais en visio." />
     <div class="flex">
       <div class="w-full sm:w-auto">
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-3">
-          <.front_page_button
-            href={~p"/booking"}
-            label="Schedule a lesson"
-            class="group relative rounded-2xl px-6 py-4 text-sm font-semibold leading-6 text-zinc-900 sm:py-6"
-          >
+          <.front_page_button href={~p"/booking"} label="Réserver un cours particulier">
             <.icon_calendar content_fill_color="#fdb7ac" />
           </.front_page_button>
-          <.front_page_button
-            href={~p"/about"}
-            class="group relative rounded-2xl px-6 py-4 text-sm font-semibold leading-6 text-zinc-900 sm:py-6"
-            label="About"
-          >
+
+          <.front_page_button href={~p"/about"} label="À propos">
             <.icon_info content_fill_color="#fee695" />
           </.front_page_button>
+
           <.front_page_button
             href="https://www.instagram.com/pieceofenglish.fr/"
-            class="group relative rounded-2xl px-6 py-4 text-sm font-semibold leading-6 text-zinc-900 sm:py-6"
             label="Instagram"
           >
             <.icon_instagram content_fill_color="#a2d5cf" />

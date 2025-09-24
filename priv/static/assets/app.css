@@ -1368,6 +1368,10 @@ select {
   padding-right: 1.5rem;
 }
 
+.ps-4 {
+  padding-inline-start: 1rem;
+}
+
 .ps-8 {
   padding-inline-start: 2rem;
 }
@@ -1376,12 +1380,12 @@ select {
   padding-top: 0.5rem;
 }
 
-.ps-4 {
-  padding-inline-start: 1rem;
-}
-
 .text-left {
   text-align: left;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .text-right {
@@ -1787,10 +1791,5 @@ select {
   .xl\:py-32 {
     padding-top: 8rem;
     padding-bottom: 8rem;
-  }
-
-  .xl\:py-16 {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
   }
 }
