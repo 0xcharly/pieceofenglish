@@ -6,35 +6,33 @@ self: {
 }: let
   cfg = config.services.pieceofenglish;
 in {
-  options.services.pieceofenglish = {
-    enable = lib.mkEnableOption "Piece of English";
+  options.services.pieceofenglish = with lib; {
+    enable = mkEnableOption "Piece of English";
 
-    package = lib.mkPackageOption pkgs "pieceofenglish" {
-      inherit (self.packages.${pkgs.system}) default;
-    };
+    package = mkPackageOption self.packages.${pkgs.system} "pieceofenglish" {};
 
-    autoStart = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Whether to start teslamate on boot.";
-    };
+    autoStart =
+      mkEnableOption "Whether to start pieceofenglish on boot."
+      // {
+        default = true;
+      };
 
-    user = lib.mkOption {
+    user = mkOption {
       description = "Unix User to run the server under";
-      type = lib.types.str;
+      type = types.str;
       default = "pieceofenglish";
     };
 
-    group = lib.mkOption {
+    group = mkOption {
       description = "Unix Group to run the server under";
-      type = lib.types.str;
+      type = types.str;
       default = "pieceofenglish";
     };
 
-    environmentFile = lib.mkOption {
-      type = lib.types.path;
+    environmentFile = mkOption {
+      type = types.path;
       example = "/run/secrets/pieceofenglish.env";
-      description = lib.mdDoc ''
+      description = mdDoc ''
         Path to an env file containing the secrets used by the Piece of English service.
 
         See https://hexdocs.pm/phoenix/Phoenix.Endpoint.html#module-runtime-configuration.
@@ -44,32 +42,32 @@ in {
       '';
     };
 
-    dataDir = lib.mkOption {
-      type = lib.types.path;
+    dataDir = mkOption {
+      type = types.path;
       description = "Directory in which to store data";
       default = "/var/lib/pieceofenglish";
     };
 
-    listenAddress = lib.mkOption {
-      type = lib.types.str;
+    listenAddress = mkOption {
+      type = types.str;
       default = "127.0.0.1";
       example = "0.0.0.0";
       description = "Host address on which to serve";
     };
 
-    port = lib.mkOption {
-      type = lib.types.port;
+    port = mkOption {
+      type = types.port;
       default = 20259;
       description = "Port on which to serve";
     };
 
-    baseUrl = lib.mkOption {
-      type = lib.types.str;
+    baseUrl = mkOption {
+      type = types.str;
       default = "pieceofenglish.fr";
       description = "Base path of the service url.";
     };
 
-    openFirewall = lib.mkEnableOption "Open firewall port for Piece of English";
+    openFirewall = mkEnableOption "Open firewall port for Piece of English";
   };
 
   config = lib.mkIf cfg.enable {
