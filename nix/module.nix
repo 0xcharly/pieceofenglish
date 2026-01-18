@@ -9,7 +9,7 @@ in {
   options.services.pieceofenglish = with lib; {
     enable = mkEnableOption "Piece of English";
 
-    package = mkPackageOption self.packages.${pkgs.system} "pieceofenglish" {};
+    package = mkPackageOption self.packages.${pkgs.stdenv.hostPlatform.system} "pieceofenglish" {};
 
     autoStart =
       mkEnableOption "Whether to start pieceofenglish on boot."
